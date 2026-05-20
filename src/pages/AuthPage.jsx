@@ -73,31 +73,33 @@ function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white flex items-center justify-center px-4 py-12">
-      <Card className="max-w-md w-full shadow-xl border-0">
-        <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-            {isLogin ? <LogIn className="w-8 h-8 text-white" /> : <User className="w-8 h-8 text-white" />}
+    <div className="min-h-screen bg-stone-100 flex items-center justify-center px-4 py-12">
+      <Card className="max-w-md w-full shadow-xl border border-stone-200 rounded-2xl overflow-hidden">
+        <CardHeader className="text-center pt-8 pb-4">
+          <div className="mx-auto w-16 h-16 bg-green-900 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-green-900/20">
+            {isLogin ? <LogIn className="w-8 h-8 text-green-300" /> : <User className="w-8 h-8 text-green-300" />}
           </div>
-          <CardTitle className="text-3xl font-bold text-gray-900 mb-2">
+          <CardTitle className="text-3xl font-bold text-green-950 mb-2">
             {isLogin ? 'Welcome Back' : 'Create Account'}
           </CardTitle>
-          <p className="text-gray-500">
+          <p className="text-stone-500 text-sm">
             {isLogin ? 'Sign in to your account to continue' : 'Join us and start buying data bundles'}
           </p>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6 pt-2">
           <form onSubmit={handleSubmit} className="space-y-5">
             {!isLogin && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-2">
+                  Full Name
+                </label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 border border-stone-200 rounded-xl bg-stone-50 focus:outline-none focus:ring-2 focus:ring-green-900/20 focus:border-green-900 transition-all"
                     placeholder="John Doe"
                     required
                   />
@@ -106,14 +108,16 @@ function AuthPage() {
             )}
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+              <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-2">
+                Email Address
+              </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 border border-stone-200 rounded-xl bg-stone-50 focus:outline-none focus:ring-2 focus:ring-green-900/20 focus:border-green-900 transition-all"
                   placeholder="you@example.com"
                   required
                 />
@@ -121,14 +125,16 @@ function AuthPage() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+              <label className="block text-xs font-semibold text-stone-600 uppercase tracking-wide mb-2">
+                Password
+              </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-12 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                  className="w-full pl-10 pr-12 py-2.5 border border-stone-200 rounded-xl bg-stone-50 focus:outline-none focus:ring-2 focus:ring-green-900/20 focus:border-green-900 transition-all"
                   placeholder="••••••••"
                   required
                 />
@@ -137,23 +143,27 @@ function AuthPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2"
                 >
-                  {showPassword ? <EyeOff size={16} className="text-gray-400" /> : <Eye size={16} className="text-gray-400" />}
+                  {showPassword ? <EyeOff size={16} className="text-stone-400" /> : <Eye size={16} className="text-stone-400" />}
                 </button>
               </div>
             </div>
 
-            <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2.5 rounded-xl transition-all duration-200">
+            <Button 
+              type="submit" 
+              disabled={loading} 
+              className="w-full bg-green-900 hover:bg-green-950 text-green-100 font-semibold py-2.5 rounded-xl transition-all duration-200 shadow-md shadow-green-900/20"
+            >
               {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
             </Button>
 
-            <p className="text-center text-sm text-gray-500">
+            <p className="text-center text-sm text-stone-500">
               {isLogin ? "Don't have an account? " : "Already have an account? "}
               <button
                 type="button"
                 onClick={() => {
                   setIsLogin(!isLogin);
                 }}
-                className="text-green-600 hover:text-green-700 font-semibold"
+                className="text-green-900 hover:text-green-950 font-semibold"
               >
                 {isLogin ? 'Create account' : 'Sign In'}
               </button>
@@ -164,4 +174,5 @@ function AuthPage() {
     </div>
   );
 }
+
 export default AuthPage;

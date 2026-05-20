@@ -41,7 +41,17 @@ function NetworkCard({ network }) {
 
   const handleShopNow = () => {
     const safeNetworkName = encodeURIComponent(network.name.replace(/\s+/g, ''));
+    
+    // Navigate to the bundles page
     navigate(`/bundles/${safeNetworkName}`);
+    
+    // Scroll to top after navigation
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
   };
 
   return (
@@ -120,7 +130,7 @@ function NetworkCard({ network }) {
         <span className="text-[11px] font-medium text-gray-400">Network online</span>
       </div>
 
-      {/* CTA button */}
+      {/* CTA button - keeping original network colors */}
       <button
         type="button"
         onClick={handleShopNow}

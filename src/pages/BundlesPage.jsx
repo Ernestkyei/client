@@ -3,7 +3,7 @@ import { useBundles } from '../hooks/useBundles';
 import { Button } from '../components/ui/button';
 import { Skeleton } from '../components/ui/skeleton';
 import { ArrowLeft, ShoppingCart, Zap, ChevronRight, CheckCircle } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { api } from '../services/api';
 import {
   Dialog,
@@ -24,6 +24,9 @@ function BundlesPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [showSummary, setShowSummary] = useState(false);
+  
+  // Create ref for the bundle section
+  const bundleSectionRef = useRef(null);
 
   // Prevent body scroll when modals are open
   useEffect(() => {
@@ -106,6 +109,16 @@ function BundlesPage() {
     const cleaned = value.replace(/\D/g, '').slice(0, 10);
     setPhoneNumber(cleaned);
     if (errorMsg) setErrorMsg('');
+  };
+
+  // Function to scroll to the bundle selection section
+  const scrollToBundleSection = () => {
+    if (bundleSectionRef.current) {
+      bundleSectionRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
   };
 
   // Loading skeleton
@@ -253,7 +266,12 @@ function BundlesPage() {
         <div className="flex items-center gap-1.5 text-xs text-stone-400 mb-7 flex-wrap">
           <button onClick={() => navigate('/')} className="hover:text-green-900 transition-colors">Home</button>
           <ChevronRight size={13} />
-          <span>buy now</span>
+          <button 
+            onClick={scrollToBundleSection}
+            className="hover:text-green-900 transition-colors cursor-pointer"
+          >
+            Buy Now
+          </button>
           <ChevronRight size={13} />
           <span className={networkColor}>{network} Non-Expiry</span>
         </div>
@@ -276,7 +294,7 @@ function BundlesPage() {
 
           {/* Left: Bundle Sizes */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6">
+            <div ref={bundleSectionRef} className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6">
               <div className="mb-5">
                 <h2 className="text-base font-semibold text-green-950 mb-0.5">{network} Non-Expiry</h2>
                 <p className="text-xs text-stone-400">Home / Shop / {network} Non-Expiry</p>
