@@ -1,9 +1,15 @@
-const API_BASE = 'http://localhost:5000/api';
+// Import endpoints from endpoint.js (FIXED PATH)
+import { 
+  AUTH, 
+  BUNDLES, 
+  ORDERS, 
+  NOTIFICATIONS 
+} from '../endpoints/endpoints.js';  // ← Changed from './endpoint.js'
 
 export const api = {
   // ==================== AUTH ====================
   async login(credentials) {
-    const res = await fetch(`${API_BASE}/auth/login`, {
+    const res = await fetch(AUTH.LOGIN, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials)
@@ -12,7 +18,7 @@ export const api = {
   },
 
   async register(userData) {
-    const res = await fetch(`${API_BASE}/auth/register`, {
+    const res = await fetch(AUTH.REGISTER, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData)
@@ -21,14 +27,14 @@ export const api = {
   },
 
   async getProfile(token) {
-    const res = await fetch(`${API_BASE}/auth/me`, {
+    const res = await fetch(AUTH.GET_PROFILE, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     return res.json();
   },
 
   async refreshToken(refreshToken) {
-    const res = await fetch(`${API_BASE}/auth/refresh-token`, {
+    const res = await fetch(AUTH.REFRESH_TOKEN, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ refreshToken })
@@ -37,7 +43,7 @@ export const api = {
   },
 
   async logout(token) {
-    const res = await fetch(`${API_BASE}/auth/logout`, {
+    const res = await fetch(AUTH.LOGOUT, {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -46,18 +52,18 @@ export const api = {
 
   // ==================== BUNDLES ====================
   async getBundles() {
-    const res = await fetch(`${API_BASE}/bundles`);
+    const res = await fetch(BUNDLES.GET_ALL);
     return res.json();
   },
 
   async getBundleById(id) {
-    const res = await fetch(`${API_BASE}/bundles/${id}`);
+    const res = await fetch(BUNDLES.GET_BY_ID(id));
     return res.json();
   },
 
   // ==================== ORDERS ====================
   async createOrder(bundleId, phoneNumber) {
-    const res = await fetch(`${API_BASE}/orders`, {
+    const res = await fetch(ORDERS.CREATE, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ bundleId, phoneNumber })
@@ -66,44 +72,44 @@ export const api = {
   },
 
   async initializePayment(orderId) {
-    const res = await fetch(`${API_BASE}/orders/${orderId}/pay`, {
+    const res = await fetch(ORDERS.INITIALIZE_PAYMENT(orderId), {
       method: 'POST'
     });
     return res.json();
   },
 
   async trackOrder(orderNumber) {
-    const res = await fetch(`${API_BASE}/orders/track/${orderNumber}`);
+    const res = await fetch(ORDERS.TRACK(orderNumber));
     return res.json();
   },
 
   async getOrdersByPhone(phoneNumber) {
-    const res = await fetch(`${API_BASE}/orders/customer/${phoneNumber}`);
+    const res = await fetch(ORDERS.GET_BY_PHONE(phoneNumber));
     return res.json();
   },
 
   async checkOrderStatus(orderId) {
-    const res = await fetch(`${API_BASE}/orders/status/${orderId}`);
+    const res = await fetch(ORDERS.CHECK_STATUS(orderId));
     return res.json();
   },
 
   // ==================== NOTIFICATIONS ====================
   async getNotifications(token) {
-    const res = await fetch(`${API_BASE}/notifications`, {
+    const res = await fetch(NOTIFICATIONS.GET_ALL, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     return res.json();
   },
 
   async getUnreadCount(token) {
-    const res = await fetch(`${API_BASE}/notifications/unread/count`, {
+    const res = await fetch(NOTIFICATIONS.UNREAD_COUNT, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     return res.json();
   },
 
   async markNotificationAsRead(notificationId, token) {
-    const res = await fetch(`${API_BASE}/notifications/${notificationId}/read`, {
+    const res = await fetch(NOTIFICATIONS.MARK_READ(notificationId), {
       method: 'PUT',
       headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -111,7 +117,7 @@ export const api = {
   },
 
   async markAllNotificationsAsRead(token) {
-    const res = await fetch(`${API_BASE}/notifications/read/all`, {
+    const res = await fetch(NOTIFICATIONS.MARK_ALL_READ, {
       method: 'PUT',
       headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -119,7 +125,7 @@ export const api = {
   },
 
   async deleteNotification(notificationId, token) {
-    const res = await fetch(`${API_BASE}/notifications/${notificationId}`, {
+    const res = await fetch(NOTIFICATIONS.DELETE(notificationId), {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` } 
     });

@@ -127,7 +127,7 @@ function NetworkCard({ network }) {
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
         </span>
-        <span className="text-[11px] font-medium text-gray-400">Network online</span>
+        <span className="text-[11px] font-medium text-gray-400">In Stock</span>
       </div>
 
       {/* CTA button - keeping original network colors */}

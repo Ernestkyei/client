@@ -1,7 +1,7 @@
 import { Button } from "../ui/button";
 import { Shield, Zap, CreditCard, ArrowRight } from "lucide-react";
 // Import the image from assets folder
-import kidaveBg from "/src/assets/kidave.png";
+import kidaveBg from "../assets/kidave.png";
 
 function HeroSection({ onShopNow, onLearnMore }) {
   return (
@@ -62,7 +62,7 @@ function HeroSection({ onShopNow, onLearnMore }) {
             <Button 
               onClick={onLearnMore}
               variant="outline" 
-              className="border-white/30 text-green-900 hover:bg-white/10 hover:border-white/50 px-6 py-5 text-base rounded-xl transition-all"
+              className="border-white/30 text-white hover:bg-white/10 hover:border-white/50 px-6 py-5 text-base rounded-xl transition-all"
             >
               Learn More
             </Button>
