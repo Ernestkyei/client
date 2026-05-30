@@ -11,14 +11,19 @@ function PaymentCallbackPage() {
   const [orderDetails, setOrderDetails] = useState(null);
   const reference = searchParams.get('reference') || searchParams.get('trxref');
 
+  // Get API URL from environment variable
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
   useEffect(() => {
     const verifyPayment = async () => {
       try {
         setMessage('Verifying your payment...');
         
         console.log('Verifying reference:', reference);
+        console.log('API URL:', API_URL);
         
-        const res = await fetch(`http://localhost:5000/api/orders/verify-payment/${reference}`);
+        // FIXED: Use environment variable instead of hardcoded localhost
+        const res = await fetch(`${API_URL}/orders/verify-payment/${reference}`);
         const data = await res.json();
         
         console.log('Verification response:', data);
@@ -27,11 +32,6 @@ function PaymentCallbackPage() {
           setStatus('success');
           setMessage('Payment successful!');
           setOrderDetails(data.order || data.data);
-          
-          // Don't auto-redirect, let user see their order details
-          // setTimeout(() => {
-          //   window.location.href = '/';
-          // }, 2000);
         } else {
           setStatus('failed');
           setMessage(data.message || 'Payment verification failed.');
@@ -58,8 +58,9 @@ function PaymentCallbackPage() {
         window.location.href = '/';
       }, 2000);
     }
-  }, [reference]);
+  }, [reference, API_URL]);
 
+  // Rest of your component remains exactly the same...
   if (status === 'verifying') {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-white px-4">
@@ -76,7 +77,6 @@ function PaymentCallbackPage() {
     return (
       <div className="min-h-screen bg-stone-100 flex flex-col items-center justify-center px-4 py-8">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden">
-          {/* Success Header */}
           <div className="bg-green-900 px-6 py-8 text-center">
             <div className="w-20 h-20 bg-green-300/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-12 h-12 text-green-300" />
@@ -85,7 +85,6 @@ function PaymentCallbackPage() {
             <p className="text-green-200 text-sm">Your order has been confirmed</p>
           </div>
           
-          {/* Order Details */}
           <div className="p-6">
             <div className="bg-stone-50 rounded-xl p-4 space-y-3 mb-6">
               <div className="flex justify-between items-center pb-2 border-b border-stone-200">
@@ -117,7 +116,6 @@ function PaymentCallbackPage() {
               </div>
             </div>
 
-            {/* Demo Mode Notice */}
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-6">
               <p className="text-xs text-yellow-800 text-center">
                 🧪 This is a DEMO transaction. No real payment was processed.
@@ -126,7 +124,6 @@ function PaymentCallbackPage() {
               </p>
             </div>
 
-            {/* Tracking Info */}
             <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
               <p className="text-sm font-semibold text-green-800 mb-2">How to track your order:</p>
               <div className="space-y-2">
@@ -145,7 +142,6 @@ function PaymentCallbackPage() {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex gap-3">
               <Button
                 onClick={() => navigate('/track')}
