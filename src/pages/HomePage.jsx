@@ -1,12 +1,10 @@
 import { useRef, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import HeroSection from '../components/common/HeroSection';
 import FeaturesSection from '../components/common/FeaturesSection';
 import NetworkSelector from '../components/common/NetworkSelector';
 import { Zap, Clock, ShieldCheck, Sparkles } from 'lucide-react';
 
 function HomePage() {
-  const navigate = useNavigate();
   const networksRef = useRef(null);
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
 
@@ -81,10 +79,8 @@ function HomePage() {
           />
         ))}
       </div>
-      
-      <FeaturesSection />
-      
-      {/* Network Selection Section */}
+
+  {/* Network Selection Section */}
       <div ref={networksRef} className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -101,6 +97,10 @@ function HomePage() {
         </div>
       </div>
 
+      
+      <FeaturesSection />
+      
+    
       {/* Trust Badges */}
       <div className="py-12 border-t border-gray-100">
         <div className="container mx-auto px-4">

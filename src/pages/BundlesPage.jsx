@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useBundles } from '../hooks/useBundles';
 import { Button } from '../components/ui/button';
 import { Skeleton } from '../components/ui/skeleton';
-import { ArrowLeft, ShoppingCart, Zap, ChevronRight, CheckCircle } from 'lucide-react';
+import { ShoppingCart, Zap, ChevronRight, CheckCircle } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { api } from '../services/api';
 import {
